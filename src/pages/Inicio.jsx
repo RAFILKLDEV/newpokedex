@@ -4,7 +4,7 @@ import { Header } from "../components/Header";
 import { GlobalStyleS } from "../styles/GlobalStyles";
 
 export async function getStaticProps() {
-  const data = await fetch("https://pokeapi.co/api/v2/pokemon/pikachu");
+  const data = await fetch("https://pokeapi.co/api/v2/pokemon/genesect");
   const pokemon = await data.json();
   console.log(pokemon.name);
 
