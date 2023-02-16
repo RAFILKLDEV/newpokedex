@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 export const PokeCardS = styled.div`
   background-color: rgb(18, 18, 18);
-  width: 300px;
-  height: 400px;
+  width: 350px;
+  height: 450;
   display: flex;
   flex-direction: column;
   border-radius: 3%;
@@ -25,8 +25,8 @@ export const PokeName = styled.div`
 `;
 
 export const PokeImg = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 `;
 
 export const PokeSelect = styled.div`
@@ -46,7 +46,7 @@ export const PokeSelector = styled.button`
 `;
 
 export const PokeInfo = styled.div`
-  height: 200px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,6 +83,28 @@ export const PokeType = styled.div`
 
 export const PokeStats = styled.div`
   display: grid;
+  width: ${(props) => props.size};
   gap: 5px;
-  grid-template-columns: 50px 150px;
+`;
+
+export const PokeStat = styled.div`
+  font-weight: 600;
+`;
+
+export const PokeStatBar = styled.div`
+  width: 200px;
+  border: 1px solid black;
+  padding: 2px;
+`;
+
+export const PokeStatBarContent = styled.div`
+  background-color: ${(props) => props.color};
+  width: ${(props) => props.width};
+  height: 100%;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 10px;
 `;

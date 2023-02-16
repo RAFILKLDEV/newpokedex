@@ -7,12 +7,18 @@ import {
   PokeImg,
   PokeName,
   PokeSelect,
-  PokeSelector,
   PokeWeight,
   PokeHeight,
   PokeType,
   PokeStats,
+  PokeStat,
+  PokeStatBar,
+  PokeStatBarContent,
 } from "@/styles/PokeCardS";
+
+interface PokeCard {
+  pokemon: string[];
+}
 
 export function PokeCard({ pokemon }) {
   const TypeColors = [
@@ -108,15 +114,15 @@ export function PokeCard({ pokemon }) {
     },
   ];
 
-  function getTypeColor(color) {
-    var result = "";
-    TypeColors.map((e) => {
-      if (color === e.key) {
-        console.log(e.label);
-        result = e.label;
-      }
+  function getTypeColor(color: string) {
+    return TypeColors.map((e) => {
+      if (color === e.key) return e.label;
     });
-    return result;
+  }
+
+  function getStatPercentage(stat: number) {
+    const result = Math.floor((stat / 255) * 100);
+    return result + "%";
   }
 
   return (
@@ -132,16 +138,16 @@ export function PokeCard({ pokemon }) {
       <PokeInfo>
         <PokeName>{pokemon?.name}</PokeName>
         <PokeDiv>
-          {pokemon.types.map((e) => (
-            <PokeType color={getTypeColor(e.type.name)} key={e}>
-              {e.type.name}
-            </PokeType>
-          ))}
-        </PokeDiv>
-        <PokeDiv>
           <PokeWeight>
-            <PokeName>{pokemon.weight} Kg</PokeName>
+            <PokeName>{(pokemon.weight / 10).toFixed(1)} Kg</PokeName>
             <PokeHeight>Peso</PokeHeight>
+          </PokeWeight>
+          <PokeWeight>
+            {pokemon.types.map((e) => (
+              <PokeType color={getTypeColor(e.type.name)} key={e}>
+                {e.type.name}
+              </PokeType>
+            ))}
           </PokeWeight>
           <PokeWeight>
             <PokeName>{(pokemon.height / 10).toFixed(1)} m</PokeName>
@@ -149,6 +155,31 @@ export function PokeCard({ pokemon }) {
           </PokeWeight>
         </PokeDiv>
         <PokeDiv>{pokemon.stats.map((e) => {})}</PokeDiv>
+        <PokeDiv>
+          <PokeStats size={"auto"}>
+            <PokeStat>HP</PokeStat>
+            <PokeStat>ATK</PokeStat>
+            <PokeStat>DEF</PokeStat>
+            <PokeStat>SPA</PokeStat>
+            <PokeStat>SPD</PokeStat>
+            <PokeStat>SPE</PokeStat>
+          </PokeStats>
+          <PokeStats>
+            {pokemon.stats.map((e) => (
+              <PokeStatBar key={e}>
+                <PokeStatBarContent
+                  width={getStatPercentage(e.base_stat)}
+                  color={getTypeColor(pokemon.types[0].type.name)}
+                ></PokeStatBarContent>
+              </PokeStatBar>
+            ))}
+          </PokeStats>
+          <PokeStats>
+            {pokemon.stats.map((e) => (
+              <div key={e}>{e.base_stat}/255</div>
+            ))}
+          </PokeStats>
+        </PokeDiv>
       </PokeInfo>
     </PokeCardS>
   );
