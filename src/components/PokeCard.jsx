@@ -16,10 +16,6 @@ import {
   PokeStatBarContent,
 } from "@/styles/PokeCardS";
 
-interface PokeCard {
-  pokemon: string[];
-}
-
 export function PokeCard({ pokemon }) {
   const TypeColors = [
     {
@@ -114,16 +110,18 @@ export function PokeCard({ pokemon }) {
     },
   ];
 
-  function getTypeColor(color: string) {
+  function getTypeColor(color) {
     return TypeColors.map((e) => {
       if (color === e.key) return e.label;
     });
   }
 
-  function getStatPercentage(stat: number) {
+  function getStatPercentage(stat) {
     const result = Math.floor((stat / 255) * 100);
     return result + "%";
   }
+
+  const img = pokemon?.sprites?.other?.["official-artwork"]?.front_default;
 
   return (
     <PokeCardS>
@@ -131,9 +129,7 @@ export function PokeCard({ pokemon }) {
         <PokeName>#{("000" + pokemon?.order).slice(-3)}</PokeName>
       </PokeBar>
       <PokeSelect>
-        <PokeImg
-          src={pokemon?.sprites?.other?.["official-artwork"]?.front_default}
-        />
+        <PokeImg src={img} />
       </PokeSelect>
       <PokeInfo>
         <PokeName>{pokemon?.name}</PokeName>

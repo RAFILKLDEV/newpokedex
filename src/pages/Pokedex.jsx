@@ -1,6 +1,7 @@
 import { PokeCard } from "@/components/PokeCard";
 import { Content } from "../components/Content";
 import { Header } from "../components/Header";
+import { Search } from "../components/Search";
 import { GlobalStyleS } from "../styles/GlobalStyles";
 
 export async function getStaticProps() {
@@ -17,8 +18,9 @@ export default function Home({ pokemon }) {
   return (
     <>
       <GlobalStyleS />
-      <Header></Header>
+      <Header />
       <Content>
+        <Search />
         <PokeCard pokemon={pokemon} />
       </Content>
     </>
