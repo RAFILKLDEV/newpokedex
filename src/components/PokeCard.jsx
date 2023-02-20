@@ -15,8 +15,21 @@ import {
   PokeStatBar,
   PokeStatBarContent,
 } from "@/styles/PokeCardS";
+import { useEffect, useState } from "react";
 
 export function PokeCard({ pokemon }) {
+  const [onePokemon, setOnePokemon] = useState();
+
+  useEffect(() => {
+    async function getPokemon() {
+      const data = await fetch(pokemon);
+      const pokemons = await data.json();
+      console.log(pokemons, "kek")
+      setOnePokemon(pokemons);
+    }
+    getPokemon(pokemon);
+  }, []);
+
   const TypeColors = [
     {
       label: "#A8A878",
@@ -121,36 +134,36 @@ export function PokeCard({ pokemon }) {
     return result + "%";
   }
 
-  const img = pokemon?.sprites?.other?.["official-artwork"]?.front_default;
+  const img = onePokemon?.sprites?.other?.["official-artwork"]?.front_default;
 
   return (
     <PokeCardS>
       <PokeBar>
-        <PokeName>#{("000" + pokemon?.order).slice(-3)}</PokeName>
+        <PokeName>#{("000" + onePokemon?.id).slice(-3)}</PokeName>
       </PokeBar>
       <PokeSelect>
         <PokeImg src={img} />
       </PokeSelect>
       <PokeInfo>
-        <PokeName>{pokemon?.name}</PokeName>
+        <PokeName>{onePokemon?.name}</PokeName>
         <PokeDiv>
           <PokeWeight>
-            <PokeName>{(pokemon.weight / 10).toFixed(1)} Kg</PokeName>
+            <PokeName>{(onePokemon?.weight / 10).toFixed(1)} Kg</PokeName>
             <PokeHeight>Peso</PokeHeight>
           </PokeWeight>
           <PokeWeight>
-            {pokemon.types.map((e) => (
+            {onePokemon?.types.map((e) => (
               <PokeType color={getTypeColor(e.type.name)} key={e}>
                 {e.type.name}
               </PokeType>
             ))}
           </PokeWeight>
           <PokeWeight>
-            <PokeName>{(pokemon.height / 10).toFixed(1)} m</PokeName>
+            <PokeName>{(onePokemon?.height / 10).toFixed(1)} m</PokeName>
             <PokeHeight>Altura</PokeHeight>
           </PokeWeight>
         </PokeDiv>
-        <PokeDiv>{pokemon.stats.map((e) => {})}</PokeDiv>
+        <PokeDiv>{onePokemon?.stats.map((e) => {})}</PokeDiv>
         <PokeDiv>
           <PokeStats size={"auto"}>
             <PokeStat>HP</PokeStat>
@@ -161,17 +174,17 @@ export function PokeCard({ pokemon }) {
             <PokeStat>SPE</PokeStat>
           </PokeStats>
           <PokeStats>
-            {pokemon.stats.map((e) => (
+            {onePokemon?.stats.map((e) => (
               <PokeStatBar key={e}>
                 <PokeStatBarContent
                   width={getStatPercentage(e.base_stat)}
-                  color={getTypeColor(pokemon.types[0].type.name)}
+                  color={getTypeColor(onePokemon?.types[0].type.name)}
                 ></PokeStatBarContent>
               </PokeStatBar>
             ))}
           </PokeStats>
           <PokeStats>
-            {pokemon.stats.map((e) => (
+            {onePokemon?.stats.map((e) => (
               <div key={e}>{e.base_stat}/255</div>
             ))}
           </PokeStats>

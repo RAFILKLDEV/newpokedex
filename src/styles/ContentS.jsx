@@ -8,6 +8,5 @@ export const ContentS = styled.div`
   align-items: center;
   justify-content: center;
   background-color: teal;
-  height: 95vh;
-  gap: 100px;
+  min-height: 95vh;
 `;

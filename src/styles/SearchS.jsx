@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SearchBar = styled.div`
   display: flex;
   gap: 15px;
+  padding: 50px;
 `;
 
 export const SearchInput = styled.input`
