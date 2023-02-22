@@ -10,7 +10,11 @@ export function Search({
 }) {
   return (
     <SearchBar>
-      <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+      <SearchInput
+        placeholder="Pokemon Name"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <SearchPokeball
         src={
           "https://1.bp.blogspot.com/_KBmmkCxTLY8/TMBfCU6xtBI/AAAAAAAAAFI/Ia5W4Suucww/s1600/kawax-pokeball-3097.png"

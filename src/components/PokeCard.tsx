@@ -17,14 +17,24 @@ import {
 } from "@/styles/PokeCardS";
 import { useEffect, useState } from "react";
 
-export function PokeCard({ pokemon }) {
-  const [onePokemon, setOnePokemon] = useState();
+interface PokeCardTypes {
+  name: string;
+  id: number;
+  weight: number;
+  height: number;
+  sprites: { other: { ["official-artwork"]: { front_default: string } } };
+  types: { type: { name: string } }[];
+  stats: { base_stat: number }[];
+}
+
+export function PokeCard({ pokemon }: { pokemon: string }) {
+  const [onePokemon, setOnePokemon] = useState<PokeCardTypes>();
 
   useEffect(() => {
-    async function getPokemon() {
-      const data = await fetch(pokemon);
+    async function getPokemon(poke: string) {
+      const data = await fetch(poke);
       const pokemons = await data.json();
-      console.log(pokemons, "kek")
+      console.log(pokemons, "kek");
       setOnePokemon(pokemons);
     }
     getPokemon(pokemon);
@@ -123,13 +133,13 @@ export function PokeCard({ pokemon }) {
     },
   ];
 
-  function getTypeColor(color) {
+  function getTypeColor(color: string) {
     return TypeColors.map((e) => {
       if (color === e.key) return e.label;
     });
   }
 
-  function getStatPercentage(stat) {
+  function getStatPercentage(stat: number) {
     const result = Math.floor((stat / 255) * 100);
     return result + "%";
   }
@@ -153,7 +163,7 @@ export function PokeCard({ pokemon }) {
           </PokeWeight>
           <PokeWeight>
             {onePokemon?.types.map((e) => (
-              <PokeType color={getTypeColor(e.type.name)} key={e}>
+              <PokeType color={getTypeColor(e.type.name)} key={e.type.name}>
                 {e.type.name}
               </PokeType>
             ))}
@@ -163,7 +173,6 @@ export function PokeCard({ pokemon }) {
             <PokeHeight>Altura</PokeHeight>
           </PokeWeight>
         </PokeDiv>
-        <PokeDiv>{onePokemon?.stats.map((e) => {})}</PokeDiv>
         <PokeDiv>
           <PokeStats size={"auto"}>
             <PokeStat>HP</PokeStat>
@@ -175,17 +184,17 @@ export function PokeCard({ pokemon }) {
           </PokeStats>
           <PokeStats>
             {onePokemon?.stats.map((e) => (
-              <PokeStatBar key={e}>
+              <PokeStatBar key={e.base_stat}>
                 <PokeStatBarContent
-                  width={getStatPercentage(e.base_stat)}
                   color={getTypeColor(onePokemon?.types[0].type.name)}
+                  width={getStatPercentage(e.base_stat)}
                 ></PokeStatBarContent>
               </PokeStatBar>
             ))}
           </PokeStats>
           <PokeStats>
             {onePokemon?.stats.map((e) => (
-              <div key={e}>{e.base_stat}/255</div>
+              <div key={e.base_stat}>{e.base_stat}/255</div>
             ))}
           </PokeStats>
         </PokeDiv>
