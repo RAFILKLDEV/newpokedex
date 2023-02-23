@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export async function getStaticProps() {
   const data = await fetch(
-    "https://pokeapi.co/api/v2/pokemon?limit=1279&offset=0"
+    "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0"
   );
   const pokemons = await data.json();
   return {
