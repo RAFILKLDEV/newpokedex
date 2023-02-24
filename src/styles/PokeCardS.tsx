@@ -73,7 +73,7 @@ export const PokeHeight = styled.div`
   color: #424242;
 `;
 export const PokeType = styled.div`
-  background-color: ${(props: { color?: string }) => props.color};
+  background-color: ${({ color }) => color};
   padding: 5px 20px;
   border-radius: 5px;
   text-transform: uppercase;
@@ -83,7 +83,7 @@ export const PokeType = styled.div`
 
 export const PokeStats = styled.div`
   display: grid;
-  width: ${(props: { size?: string }) => props.size};
+  width: "auto";
   gap: 5px;
 `;
 
@@ -98,8 +98,8 @@ export const PokeStatBar = styled.div`
 `;
 
 export const PokeStatBarContent = styled.div`
-  background-color: ${(props) => props.color};
-  width: ${(props: { width?: number }) => props.width};
+  background-color: ${({ color }) => color};
+  width: ${({ x }: { x: string }) => x};
   height: 100%;
   color: black;
   display: flex;

@@ -7,6 +7,5 @@ export const ContentS = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: teal;
   min-height: 95vh;
 `;

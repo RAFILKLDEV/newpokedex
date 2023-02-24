@@ -23,12 +23,9 @@ export default function Home({ pokemons }) {
       <GlobalStyleS />
       <Header />
       <Content>
-        <Search
-          search={search}
-          setSearch={setSearch}
-        />
+        <Search search={search} setSearch={setSearch} />
         <PokeDex>
-          {pokemons.results.map((e) => {
+          {pokemons.results.map((e, i) => {
             if (e.name.toLowerCase().includes(search)) {
               return <PokeCard key={e.name} pokemon={e.url} />;
             }
